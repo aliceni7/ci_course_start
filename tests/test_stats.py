@@ -4,7 +4,6 @@ import ci_course
 
 def test_summarises_empty_column():
     summary = ci_course.summarise(np.array([]))
-    
     assert summary["n"] == 0.0
 
 def test_summarises_one_column():
