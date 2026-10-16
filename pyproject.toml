@@ -34,9 +34,6 @@ ci_course = ["data/*.csv"]
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.coverage.run]
-branch = true
-
 [tool.ruff]
 line-length = 120
 
@@ -56,3 +53,4 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["ci_course"]
+branch = true
