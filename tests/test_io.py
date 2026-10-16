@@ -17,7 +17,6 @@ def test_blank_cells_are_read_as_missing():
     assert np.isnan(data["temperature_c"]).sum() == 1
     assert np.isnan(data["mass_g"]).sum() == 1
 
-
 def test_reads_a_file_given_by_path(tmp_path):
     csv = tmp_path / "measurements.csv"
     csv.write_text("sample_id,height_m\nA,1.5\nB,2.5\n", encoding="utf-8")
@@ -26,3 +25,14 @@ def test_reads_a_file_given_by_path(tmp_path):
 
     assert list(data) == ["height_m"]
     assert data["height_m"].tolist() == [1.5, 2.5]
+
+def test_wrong_value_are_recorded(tmp_path):
+    csv = tmp_path / "bad.csv"
+    csv.write_text("sample_id,height_m\nA,1.5\nB,string\n", encoding="utf-8")
+
+    errors = []
+    data = ci_course.load_measurements(csv, errors=errors)
+
+    assert np.isnan(data["height_m"][1])
+    assert len(errors) == 1
+

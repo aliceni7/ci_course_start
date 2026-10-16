@@ -2,6 +2,15 @@ import numpy as np
 
 import ci_course
 
+def test_summarises_empty_column():
+    summary = ci_course.summarise(np.array([]))
+    
+    assert summary["n"] == 0.0
+
+def test_summarises_one_column():
+    summary = ci_course.summarise(np.array([100.0]))
+
+    assert summary["sd"] == 0.0
 
 def test_summarises_a_complete_column():
     summary = ci_course.summarise(np.array([1.0, 2.0, 3.0]))
